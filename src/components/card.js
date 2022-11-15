@@ -1,6 +1,8 @@
 
 import styled from "styled-components";
 import React, { useState ,useEffect} from 'react'
+import ButtonMailto from "./mailto";
+
 
  
 function Card() {
@@ -62,16 +64,21 @@ function Card() {
       <p>{formErrors.email}</p>
       <div className="input-group">
         <label>Your Message</label>
-        <textarea name="feeedback"
+        <textarea name="feedback"
         rows="5" 
         placeholder="Enter your message"  
         value={formValues.feedback}
-        onChange={handleChange}>    
+        onChange={handleChange}>
+            
         </textarea>
       </div>
       <p>{formErrors.feedback}</p>
 
-    <button>Submit</button>
+      <ButtonMailto >
+        <button type="submit" onClick={() => window.location.href = 'mailto:yourmail@domain.com'}>Submit</button>
+      </ButtonMailto>
+   
+
     
    
   </form>
@@ -83,6 +90,7 @@ function Card() {
 const CardStyled = styled.div`
 p{
     color: red;
+    display: flex;
     align-items: right;
 }
 .container{
