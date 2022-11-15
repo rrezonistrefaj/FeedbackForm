@@ -1,5 +1,6 @@
+
 import styled from "styled-components";
-import React from 'react'
+import React, {useState} from 'react'
 // import { Link } from "react-router-dom";
 
 // const ButtonMailto = ({ mailto, label }) => {
@@ -16,34 +17,56 @@ import React from 'react'
 //     );
 // };
 
-// const messageError = document.getElementById('message-error');
-
-// function validateMessage(){
-//     let message = document.getElementById('contact-message')
-// }
 
 function Card() {
+const initialValues = {textarea:""} ;
+const [formValues, setFormValues]= useState(initialValues);
+const [formErrors, setFormErrors]= useState({});
+
+const handleChange = (e) => {
+    const {value} = e.target;
+    setFormValues({...formValues,textarea: value });
+    console.log(formValues);
+}
+const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormErrors(validate(formValues));
+};
+
+const validate = (values) => {
+    const errors = {};
+    if(!values.textarea){
+        errors.textarea = "";
+    };
+    return errors;
+};
   return (
     <CardStyled>
-              <div class="container">
-    <form>
-      <i class="fas fa-paper-plane"></i>
+              <div className="container">
+                <pre>{JSON.stringify(formValues)}</pre>
+    <form onSubmit={handleSubmit}>
 
-      <div class="input-group">
+      <div className="input-group">
         <label>Full Name</label>
         <input type="text" placeholder="Enter your name" required>
         </input>
       </div>
 
-      <div class="input-group">
-        <label>Email Id</label>
+      <div className="input-group">
+        <label>Email</label>
         <input type="email" placeholder="Enter Email" required></input>
         <span id="email-error"></span>
       </div>   
 
-      <div class="input-group">
+      <div className="input-group">
         <label>Your Message</label>
-        <textarea rows="5" placeholder="Enter your message"  id="contact-message" onkeyup="validateMessage()" required></textarea>
+        <textarea 
+        rows="5" 
+        placeholder="Enter your message"  
+        value= {formValues.textarea} 
+        required
+        onChange={handleChange}
+        ></textarea>
         <span id="message-error"></span>
       </div>
 
@@ -118,41 +141,6 @@ form button{
     color: red;
 }
 
-//previous codes
-/* .header{
-    
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    color: white;
-}
-input{
-    width:350px;
-    height: 40px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    padding: 10px 10px;
-    font-size: 20px;
-  
-
-}
-textarea{
-    width:350px;
-    height: 200px;
-    border-radius: 10px;
-    padding: 10px 10px;
-    font-size: 20px;
-}
-button{
-    width: 130px;
-    height: 40px;
-    border-radius: 30px;
-    font-size: 20px;
-    margin: 10px auto 5px 110px;
-    font-weight: 800;
-    outline: none;
-    cursor:pointer;
-} */
 `;
 
 export default Card
