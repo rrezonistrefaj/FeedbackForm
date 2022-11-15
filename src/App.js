@@ -2,7 +2,8 @@ import CardStyled from "./components/card";
 import GlobalStyle from "./global";
 
 
-function App() {
+function App() 
+{
   return (
     <div className="App">
       <GlobalStyle/>
