@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useLayoutEffect } from 'react'
-// import ButtonMailto from "./mailto";
+
 
 
 
@@ -41,7 +41,7 @@ function Card() {
     return errors;
   };
 
-  const url = new URLSearchParams(); url.append('subject', `Rrezons Feedback Form from ${formValues.username}`);
+  const url = new URLSearchParams(); url.append('subject', `from ${formValues.username}`);
 
   url.append('bcc', formValues.email);
   url.append('body', `${formValues.feedback} \n from ${formValues.email}`);
@@ -52,19 +52,17 @@ function Card() {
   return (
     <CardStyled>
       <div className="container">
-        {/* <pre>{JSON.stringify(formValues,undefined)}</pre> */}
         <form onSubmit={handleSubmit}>
 
           <div className="input-group">
             <label>Full Name</label>
-            <input type="text" name="username" placeholder="Enter your name" value={formValues.username} onChange={handleChange}>
-            </input>
+            <input type="text" name="username" placeholder="Enter your name" value={formValues.username} onChange={handleChange}/>
+           
           </div>
           <p>{formErrors.username}</p>
           <div className="input-group">
             <label>Email</label>
-            <input type="email" name="email" placeholder="Enter Email" value={formValues.email} onChange={handleChange}
-            ></input>
+            <input type="email" name="email" placeholder="Enter Email" value={formValues.email} onChange={handleChange}/>
 
           </div>
           <p>{formErrors.email}</p>
@@ -80,7 +78,7 @@ function Card() {
           </div>
           <p>{formErrors.feedback}</p>
 
-          <a href={href} disabled={Object.values(validate(formValues)).length}>Submit</a>   
+          <a className='btn' href={href} disabled={Object.values(validate(formValues)).length}>Submit</a>   
 
 
 
@@ -137,8 +135,9 @@ p{
     font-size: 14px;
 }
 
-form button{
+.btn{
     background: #141a34;
+align-items:center;
     color: #fff;
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.7);
@@ -146,7 +145,7 @@ form button{
     outline: 0;
     cursor: pointer;
     display: block;
-    margin: 30px auto 10px;
+    margin: 30px 150px 10px 150px;
 }
 .input-group span{
     position: absolute;
