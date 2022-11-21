@@ -10,6 +10,7 @@ function Card() {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const href = `${ButtonMailto}?${url.toString()}`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,21 +44,26 @@ function Card() {
     }
     return errors;
   };
+ 
+  
+
   return (
+    
     <CardStyled>
+      
               <div className="container">
               {/* <pre>{JSON.stringify(formValues,undefined)}</pre> */}
     <form onSubmit={handleSubmit}>
 
       <div className="input-group">
         <label>Full Name</label>
-        <input type="text" name="username" placeholder="Enter your name" value={formValues.username} onChange={handleChange}>
+        <input type="text" name="username" placeholder="Enter your name"id="username" value={formValues.username} onChange={handleChange}>
         </input>
       </div>
         <p>{formErrors.username}</p>
       <div className="input-group">
         <label>Email</label>
-        <input type="email" name="email" placeholder="Enter Email" value={formValues.email} onChange={handleChange}
+        <input type="email" name="email" placeholder="Enter Email"id="email" value={formValues.email} onChange={handleChange}
 ></input>
 
       </div>   
@@ -65,6 +71,7 @@ function Card() {
       <div className="input-group">
         <label>Your Message</label>
         <textarea name="feedback"
+        id="textarea"
         rows="5" 
         placeholder="Enter your message"  
         value={formValues.feedback}
@@ -73,20 +80,20 @@ function Card() {
         </textarea>
       </div>
       <p>{formErrors.feedback}</p>
+     
 
       <ButtonMailto >
-        <button type="submit" onClick={() => window.location.href = 'mailto:yourmail@domain.com'}>Submit</button>
+        <a href={href} disabled={Object.values(validate(formValues).length)}>Submit</a>
       </ButtonMailto>
-   
 
-    
-   
   </form>
   </div>
     </CardStyled>
   )
 }
 
+
+  
 const CardStyled = styled.div`
 p{
     color: red;
@@ -134,7 +141,7 @@ p{
     font-size: 14px;
 }
 
-form button{
+button{
     background: #141a34;
     color: #fff;
     border-radius: 4px;
