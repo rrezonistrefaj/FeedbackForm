@@ -1,25 +1,25 @@
 import styled from "styled-components";
-import React, { useState ,useLayoutEffect} from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 // import ButtonMailto from "./mailto";
 
 
- 
+
 function Card() {
-  const initialValues = { username: "", email: "", feedback: "" };
-  const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+    const initialValues = { username: "", email: "", feedback: "" };
+    const [formValues, setFormValues] = useState(initialValues);
+    const [formErrors, setFormErrors] = useState({});
+    const [setIsSubmit] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
+    const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmit(true);
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFormErrors(validate(formValues));
+        setIsSubmit(true);
+    };
 
   useLayoutEffect(() => {
     console.log(formErrors);
@@ -32,7 +32,7 @@ function Card() {
     }
     if (!values.email) {
       errors.email = "Email is required!";
-    } 
+    }
     if (!values.feedback) {
       errors.feedback = "Feedback is required!";
     } else if (values.feedback.length < 10) {
@@ -41,50 +41,51 @@ function Card() {
     return errors;
   };
 
-const url = new URL();
-  url.append('subject', `Rrezons Feedback Form from ${formValues.username}`);
+  const url = new URLSearchParams(); url.append('subject', `Rrezons Feedback Form from ${formValues.username}`);
+
+  url.append('bcc', formValues.email);
   url.append('body', `${formValues.feedback} \n from ${formValues.email}`);
 
-const mailTo = `mailto:shselaci3@gmail.com`;
+  const mailTo = `mailto:xoni-pr@hotmail.com`;
 
-const href = `${mailTo}?${url.toString()}`;
+  const href = `${mailTo}?${url.toString()}`;
   return (
     <CardStyled>
-              <div className="container">
-              {/* <pre>{JSON.stringify(formValues,undefined)}</pre> */}
-    <form onSubmit={handleSubmit}>
+      <div className="container">
+        {/* <pre>{JSON.stringify(formValues,undefined)}</pre> */}
+        <form onSubmit={handleSubmit}>
 
-      <div className="input-group">
-        <label>Full Name</label>
-        <input type="text" name="username" placeholder="Enter your name" value={formValues.username} onChange={handleChange}>
-        </input>
+          <div className="input-group">
+            <label>Full Name</label>
+            <input type="text" name="username" placeholder="Enter your name" value={formValues.username} onChange={handleChange}>
+            </input>
+          </div>
+          <p>{formErrors.username}</p>
+          <div className="input-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter Email" value={formValues.email} onChange={handleChange}
+            ></input>
+
+          </div>
+          <p>{formErrors.email}</p>
+          <div className="input-group">
+            <label>Your Message</label>
+            <textarea name="feedback"
+              rows="5"
+              placeholder="Enter your message"
+              value={formValues.feedback}
+              onChange={handleChange}>
+
+            </textarea>
+          </div>
+          <p>{formErrors.feedback}</p>
+
+          <a href={href} disabled={Object.values(validate(formValues)).length}>Submit</a>   
+
+
+
+        </form>
       </div>
-        <p>{formErrors.username}</p>
-      <div className="input-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Enter Email" value={formValues.email} onChange={handleChange}
-></input>
-
-      </div>   
-      <p>{formErrors.email}</p>
-      <div className="input-group">
-        <label>Your Message</label>
-        <textarea name="feedback"
-        rows="5" 
-        placeholder="Enter your message"  
-        value={formValues.feedback}
-        onChange={handleChange}>
-            
-        </textarea>
-      </div>
-      <p>{formErrors.feedback}</p>
-
-      <a href={href} disabled={Object.values(validate(formValues)).length}>Submit</a>   
-
-    
-   
-  </form>
-  </div>
     </CardStyled>
   )
 }
