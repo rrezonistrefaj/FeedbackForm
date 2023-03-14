@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Fill form to send message that automatically opens on your local email client.
+
 ## Available Scripts
 
 In the project directory, you can run:
